@@ -26,9 +26,12 @@ share_examples_for :atomic_boolean do
     it 'returns the current value' do
       counter = described_class.new(true)
       counter.value.should be_true
-      counter.make_false
+      counter.value = false
       counter.value.should be_false
-      counter.make_true
+
+      counter = described_class.new(false)
+      counter.value.should be_false
+      counter.value = true
       counter.value.should be_true
     end
   end
@@ -37,6 +40,7 @@ share_examples_for :atomic_boolean do
 
     it 'sets the #value to the given `Boolean`' do
       atomic = described_class.new(true)
+      atomic.value.should be_true
       atomic.value = false
       atomic.value.should be_false
     end
@@ -76,12 +80,14 @@ share_examples_for :atomic_boolean do
   describe '#make_true' do
 
     it 'makes a false value true and returns true' do
+      pending('gcc atomic research') if defined?(Concurrent::CAtomicBoolean) && subject.is_a?(Concurrent::CAtomicBoolean)
       subject = described_class.new(false)
       subject.make_true.should be_true
       subject.value.should be_true
     end
 
     it 'keeps a true value true and returns false' do
+      pending('gcc atomic research') if defined?(Concurrent::CAtomicBoolean) && subject.is_a?(Concurrent::CAtomicBoolean)
       subject = described_class.new(true)
       subject.make_true.should be_false
       subject.value.should be_true
@@ -91,12 +97,14 @@ share_examples_for :atomic_boolean do
   describe '#make_false' do
 
     it 'makes a true value false and returns true' do
+      pending('gcc atomic research') if defined?(Concurrent::CAtomicBoolean) && subject.is_a?(Concurrent::CAtomicBoolean)
       subject = described_class.new(true)
       subject.make_false.should be_true
       subject.value.should be_false
     end
 
     it 'keeps a false value false and returns false' do
+      pending('gcc atomic research') if defined?(Concurrent::CAtomicBoolean) && subject.is_a?(Concurrent::CAtomicBoolean)
       subject = described_class.new(false)
       subject.make_false.should be_false
       subject.value.should be_false
@@ -151,7 +159,13 @@ module Concurrent
     end
   end
 
-  if jruby?
+  if use_extensions?
+
+    describe CAtomicBoolean do
+      it_should_behave_like :atomic_boolean
+    end
+
+  elsif jruby?
 
     describe JavaAtomicBoolean do
       it_should_behave_like :atomic_boolean
@@ -159,7 +173,11 @@ module Concurrent
   end
 
   describe AtomicBoolean do
-    if jruby?
+    if defined? Concurrent::CAtomicBoolean
+      it 'inherits from CAtomicBoolean' do
+        AtomicBoolean.ancestors.should include(CAtomicBoolean)
+      end
+    elsif jruby?
       it 'inherits from JavaAtomicBoolean' do
         AtomicBoolean.ancestors.should include(JavaAtomicBoolean)
       end

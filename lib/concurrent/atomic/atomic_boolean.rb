@@ -148,6 +148,12 @@ module Concurrent
     class AtomicBoolean < JavaAtomicBoolean
     end
 
+  elsif defined? Concurrent::CAtomicBoolean
+
+    # @!macro atomic_boolean
+    class AtomicBoolean < CAtomicBoolean
+    end
+
   else
 
     # @!macro atomic_boolean
