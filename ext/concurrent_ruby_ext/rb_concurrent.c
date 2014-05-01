@@ -26,7 +26,7 @@ void Init_concurrent_ruby_ext() {
   rb_define_alloc_func(rb_cAtomicBoolean, atomic_boolean_allocate);
   rb_define_method(rb_cAtomicBoolean, "initialize", method_atomic_boolean_initialize, -1);
   rb_define_method(rb_cAtomicBoolean, "value", method_atomic_boolean_value, 0);
-  rb_define_method(rb_cAtomicBoolean, "value=", method_atomic_boolean_value_eq, 1);
+  rb_define_method(rb_cAtomicBoolean, "value=", method_atomic_boolean_value_set, 1);
   rb_define_method(rb_cAtomicBoolean, "true?", method_atomic_boolean_true_question, 0);
   rb_define_method(rb_cAtomicBoolean, "false?", method_atomic_boolean_false_question, 0);
   rb_define_method(rb_cAtomicBoolean, "make_true", method_atomic_boolean_make_true, 0);
@@ -36,7 +36,7 @@ void Init_concurrent_ruby_ext() {
   rb_define_alloc_func(rb_cAtomicFixnum, atomic_fixnum_allocate);
   rb_define_method(rb_cAtomicFixnum, "initialize", method_atomic_fixnum_initialize, -1);
   rb_define_method(rb_cAtomicFixnum, "value", method_atomic_fixnum_value, 0);
-  rb_define_method(rb_cAtomicFixnum, "value=", method_atomic_fixnum_value_eq, 1);
+  rb_define_method(rb_cAtomicFixnum, "value=", method_atomic_fixnum_value_set, 1);
   rb_define_method(rb_cAtomicFixnum, "increment", method_atomic_fixnum_increment, 0);
   rb_define_method(rb_cAtomicFixnum, "decrement", method_atomic_fixnum_decrement, 0);
   rb_define_method(rb_cAtomicFixnum, "compare_and_set", method_atomic_fixnum_compare_and_set, 2);

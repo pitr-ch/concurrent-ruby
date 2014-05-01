@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "atomic_boolean.h"
+#include "helpers.h"
 
 // http://gcc.gnu.org/onlinedocs/gcc-4.7.1/gcc/_005f_005fatomic-Builtins.html
 
@@ -30,7 +31,6 @@ VALUE method_atomic_boolean_initialize(int argc, VALUE* argv, VALUE self) {
   CAtomicBoolean* atomic;
 
   rb_check_arity(argc, 0, 1);
-  /*if (argc == 1) Check_Type(argv[0], T_BOOLEAN);*/
 
   Data_Get_Struct(self, CAtomicBoolean, atomic);
 
@@ -55,11 +55,9 @@ VALUE method_atomic_boolean_value(VALUE self) {
   return BOOL2RUBY(value);
 }
 
-VALUE method_atomic_boolean_value_eq(VALUE self, VALUE value) {
+VALUE method_atomic_boolean_value_set(VALUE self, VALUE value) {
   CAtomicBoolean* atomic;
   bool new_value;
-
-  /*Check_Type(value, T_BOOLEAN);*/
 
   new_value = RUBY2BOOL(value);
   Data_Get_Struct(self, CAtomicBoolean, atomic);

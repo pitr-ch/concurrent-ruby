@@ -25,7 +25,7 @@ VALUE atomic_boolean_allocate(VALUE);
 void atomic_boolean_deallocate(void*);
 VALUE method_atomic_boolean_initialize(int, VALUE*, VALUE);
 VALUE method_atomic_boolean_value(VALUE);
-VALUE method_atomic_boolean_value_eq(VALUE, VALUE);
+VALUE method_atomic_boolean_value_set(VALUE, VALUE);
 VALUE method_atomic_boolean_true_question(VALUE);
 VALUE method_atomic_boolean_false_question(VALUE);
 VALUE method_atomic_boolean_make_true(VALUE);

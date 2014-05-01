@@ -1,3 +1,4 @@
+#include <ruby.h>
 #include <sys/time.h>
 
 // for converting timeout (float seconds) to absolute system time
@@ -20,5 +21,13 @@ void abs_time_from_timeout(double timeout, struct timespec* ts) {
   if (ts->tv_nsec >= NANO) {
     ts->tv_nsec -= NANO;
     ts->tv_sec += 1;
+  }
+}
+
+void Check_Boolean(VALUE value) {
+  VALUE type = TYPE(value);
+
+  if (type != T_TRUE && type != T_FALSE) {
+    rb_raise(rb_eTypeError, "must be a boolean");
   }
 }

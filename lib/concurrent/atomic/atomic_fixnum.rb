@@ -35,7 +35,7 @@ module Concurrent
       result
     end
 
-    # @!macro [attach] atomic_fixnum_method_value_eq
+    # @!macro [attach] atomic_fixnum_method_value_set
     #
     #   Explicitly sets the value.
     #
@@ -127,7 +127,7 @@ module Concurrent
         @atomic.get
       end
 
-      # @!macro atomic_fixnum_method_value_eq
+      # @!macro atomic_fixnum_method_value_set
       #
       def value=(value)
         raise ArgumentError.new('value must be a Fixnum') unless value.is_a?(Fixnum)

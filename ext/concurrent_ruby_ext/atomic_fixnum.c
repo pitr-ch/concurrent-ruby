@@ -55,7 +55,7 @@ VALUE method_atomic_fixnum_value(VALUE self) {
   return INT2FIX(value);
 }
 
-VALUE method_atomic_fixnum_value_eq(VALUE self, VALUE value) {
+VALUE method_atomic_fixnum_value_set(VALUE self, VALUE value) {
   CAtomicFixnum* atomic;
   long new_value;
 

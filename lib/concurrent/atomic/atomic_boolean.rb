@@ -32,7 +32,7 @@ module Concurrent
       result
     end
 
-    # @!macro [attach] atomic_boolean_method_value_eq
+    # @!macro [attach] atomic_boolean_method_value_set
     #
     #   Explicitly sets the value.
     #
@@ -117,7 +117,7 @@ module Concurrent
         @atomic.get
       end
 
-      # @!macro atomic_boolean_method_value_eq
+      # @!macro atomic_boolean_method_value_set
       #
       def value=(value)
         @atomic.set(!!value)
