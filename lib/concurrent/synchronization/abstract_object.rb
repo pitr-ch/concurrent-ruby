@@ -73,7 +73,7 @@ module Concurrent
       def ns_wait_until(timeout = nil, &condition)
         if timeout
           wait_until = Concurrent.monotonic_time + timeout
-          loop do
+          while true
             now              = Concurrent.monotonic_time
             condition_result = condition.call
             # 0.001 correction to avoid error when `wait_until - now` is smaller than 0.0005 and rounded to 0
